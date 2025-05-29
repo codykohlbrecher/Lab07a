@@ -148,11 +148,11 @@ void WordCount::dumpWordsSortedByWord(std::ostream &out) const
  {
     std::vector<std::pair<std::string, int>> total;
 
-    for (int i = 0; i < CAPACITY; ++i)
+    for (size_t i = 0; i < CAPACITY; ++i)
 	 {
         for (const auto &entry : table[i])
 		{
-            total.push_back(entry);
+            total.push_back(entry);//gather all the words
         }
     }
 
@@ -168,7 +168,7 @@ void WordCount::dumpWordsSortedByWord(std::ostream &out) const
 void WordCount::dumpWordsSortedByOccurence(std::ostream &out) const {
     std::vector<std::pair<std::string, int>> total;
 
-    for (int i = 0; i < CAPACITY; ++i)
+    for (size_t i = 0; i < CAPACITY; ++i)
 	 {
         for (const auto &entry : table[i]) 
 		{
@@ -176,12 +176,13 @@ void WordCount::dumpWordsSortedByOccurence(std::ostream &out) const {
         }
     }
 
-    std::sort(total.begin(), total.end(),
-        [](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b)
+    std::sort(total.begin(), total.end(), [](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b)
 		{
             if (a.second != b.second)
-                return a.second > b.second;  // Higher count comes first
-            return a.first < b.first;        // Tie: sort alphabetically
+            {
+                return a.second > b.second;//sort by count  
+            }
+            return a.first < b.first;//sort by alpha
         }
     );
 
