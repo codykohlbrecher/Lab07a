@@ -156,10 +156,12 @@ void WordCount::dumpWordsSortedByWord(std::ostream &out) const
         }
     }
 
-    std::sort(total.begin(), total.end());
+    std::sort(total.begin(), total.end(), [](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b) {
+            return a.first > b.first;  
+        }
+    );
 
-    for (const auto &entry : total)
-	{
+    for (const auto &entry : total) {
         out << entry.first << "," << entry.second << std::endl;
     }
 }
@@ -176,18 +178,17 @@ void WordCount::dumpWordsSortedByOccurence(std::ostream &out) const {
         }
     }
 
-    std::sort(total.begin(), total.end(), [](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b)
-		{
-            if (a.second != b.second)
+    std::sort(total.begin(), total.end(), [](const std::pair<std::string, int> &a, const std::pair<std::string, int> &b) 
+    {
+            if (a.second != b.second) 
             {
-                return a.second > b.second;//sort by count  
+                return a.second > b.second;  // sort by count
             }
-            return a.first < b.first;//sort by alpha
+            return a.first < b.first;        // sort by alpha
         }
     );
 
-    for (const auto &entry : total) 
-	{
+    for (const auto &entry : total) {
         out << entry.first << "," << entry.second << std::endl;
     }
 }
